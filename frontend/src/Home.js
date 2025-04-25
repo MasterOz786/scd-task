@@ -92,7 +92,14 @@ const Home = () => {
                                             setUpdatetask(todo.task);
                                         }} />
                                     )}
-                                    <BsFillTrashFill className='icon' onClick={() => Hdelete(todo._id)} />
+                                    <BsFillTrashFill
+                                        className='icon'
+                                        onClick={() => {
+                                            if (window.confirm('Are you sure you want to delete this task?')) {
+                                            Hdelete(todo._id);
+                                            }
+                                        }}
+                                        />
                                 </span>
                             </div>
                         </div>
