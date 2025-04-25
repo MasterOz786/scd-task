@@ -67,6 +67,7 @@ const Home = () => {
                         <div className='task' key={todo._id}>
                             <div className='checkbox'>
                                 {todo.done ? <BsFillCheckCircleFill className='icon' /> :
+                                    taskid === todo._id? <BsPencil className='icon' /> :
                                     <BsCircleFill className='icon' onClick={() => edit(todo._id)} />}
                                 {taskid === todo._id ?
                                     <input type='text' value={updatetask} onChange={e => setUpdatetask(e.target.value)} />
@@ -76,14 +77,15 @@ const Home = () => {
                             </div>
                             <div>
                                 <span>
-                                    <BsPencil className='icon' onClick={() => {
-                                        if (taskid === todo._id) {
-                                            Update(todo._id, updatetask);
-                                        } else {
+                                {
+                                    taskid === todo._id ? (
+                                        <BsFillCheckCircleFill className='icon' onClick={() => Update(todo._id, updatetask)} />
+                                    ) : (
+                                        <BsPencil className='icon' onClick={() => {
                                             setTaskid(todo._id);
                                             setUpdatetask(todo.task);
-                                        }
-                                    }} />
+                                        }} />
+                                    )}
                                     <BsFillTrashFill className='icon' onClick={() => Hdelete(todo._id)} />
                                 </span>
                             </div>
