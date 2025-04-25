@@ -1,8 +1,9 @@
+import './App.css';
 import React, { useEffect, useState } from 'react';
 import Create from './Create';
-import './App.css';
 import axios from 'axios';
 import { BsCircleFill, BsFillCheckCircleFill, BsFillTrashFill, BsPencil } from 'react-icons/bs';
+import { formatDistanceToNow } from 'date-fns';
 
 const Home = () => {
     const [todos, setTodos] = useState([]);
@@ -69,11 +70,16 @@ const Home = () => {
                                 {todo.done ? <BsFillCheckCircleFill className='icon' /> :
                                     taskid === todo._id? <BsPencil className='icon' /> :
                                     <BsCircleFill className='icon' onClick={() => edit(todo._id)} />}
-                                {taskid === todo._id ?
+                                {taskid === todo._id ? (
                                     <input type='text' value={updatetask} onChange={e => setUpdatetask(e.target.value)} />
-                                    :
-                                    <p className={todo.done ? 'through' : 'normal'}>{todo.task}</p>
-                                }
+                                ) : (
+                                    <div>
+                                        <p className={todo.done ? 'through' : 'normal'}>{todo.task}</p>
+                                        <small className="timestamp">
+                                            {formatDistanceToNow(new Date(todo.createdAt), { addSuffix: true })}
+                                        </small>
+                                    </div>
+                                )}
                             </div>
                             <div>
                                 <span>
