@@ -33,7 +33,11 @@ app.get('/get',(req,res)=>{
   .then(result=> res.json(result))
   .catch(err=>console.log(err));
 });
-  
+ 
+app.get('/', (req, res) => {
+	res.send({"h": "hi"});
+});
+
 app.put('/edit/:id',(req,res)=>{
   const{id} = req.params;
   TodoModel.findByIdAndUpdate(id,{done:true},{new:true})
