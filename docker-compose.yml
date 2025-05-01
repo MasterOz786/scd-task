@@ -1,0 +1,39 @@
+
+services:
+  mongo:
+    image: mongo:8
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mern
+
+  backend:
+    build: ./backend
+    container_name: backend
+    environment:
+      - MONGO_URI=${MONGO_URI}
+    depends_on:
+      - mongo
+    networks:
+      - mern
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "80:3000"
+    depends_on:
+      - backend
+    networks:
+      - mern
+
+volumes:
+  mongo-data:
+
+networks:
+  mern:
+    driver: bridge
+
